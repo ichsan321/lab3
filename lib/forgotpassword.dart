@@ -41,11 +41,10 @@ class _HomePageState extends State<ResetPassword> {
       child: Scaffold(
         resizeToAvoidBottomPadding: false,
         body: new Container(
-            decoration: new BoxDecoration(
-            image: new DecorationImage(
-                image: AssetImage(
-                    'asset/images/background1.jpg'), // untuk background belakang
-                fit: BoxFit.fill)),
+          decoration: new BoxDecoration(
+              image: new DecorationImage(
+                  image: AssetImage('asset/images/background1.jpg'),
+                  fit: BoxFit.fill)),
           child: new Container(
             padding: EdgeInsets.all(30),
             child: Column(
@@ -56,12 +55,12 @@ class _HomePageState extends State<ResetPassword> {
                 ),
                 TextField(
                   controller: _securityCodeController,
-                  keyboardType: TextInputType.number,
+                  keyboardType: TextInputType.text,
                   decoration: InputDecoration(
                     labelText: 'Security Code',
-                  labelStyle:new TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+                    labelStyle: new TextStyle(
+                        color: Colors.black, fontWeight: FontWeight.bold),
                     icon: Icon(Icons.lock),
-                    
                   ),
                 ),
                 SizedBox(
@@ -78,14 +77,13 @@ class _HomePageState extends State<ResetPassword> {
                       minWidth: 150,
                       height: 50,
                       color: Color.fromRGBO(40, 206, 209, 1),
-              textColor: Colors.white,
+                      textColor: Colors.white,
                       child: Text(
                         'Cancel',
                         style: new TextStyle(
-                            fontSize: 20.0,
-                          ),
+                          fontSize: 20.0,
+                        ),
                       ),
-                    
                       elevation: 15,
                       onPressed: _cancel,
                     ),
@@ -98,14 +96,13 @@ class _HomePageState extends State<ResetPassword> {
                       minWidth: 150,
                       height: 50,
                       color: Color.fromRGBO(40, 206, 209, 1),
-              textColor: Colors.white,
+                      textColor: Colors.white,
                       child: Text(
                         'OK',
                         style: new TextStyle(
-                            fontSize: 20.0,
-                          ),
+                          fontSize: 20.0,
+                        ),
                       ),
-                      
                       elevation: 15,
                       onPressed: _checkCode,
                     ),
@@ -115,20 +112,18 @@ class _HomePageState extends State<ResetPassword> {
                   height: 30,
                 ),
                 TextField(
-                  enabled: _isCodeMatch,
-                  controller: _newPasswordController,
-                  keyboardType: TextInputType.text,
-                  decoration: InputDecoration(
-                    labelText: 'New Password',
-                    icon: Icon(Icons.lock),
-                  ),
-                  obscureText: true
-                ),
+                    enabled: _isCodeMatch,
+                    controller: _newPasswordController,
+                    keyboardType: TextInputType.text,
+                    decoration: InputDecoration(
+                      labelText: 'New Password',
+                      icon: Icon(Icons.lock),
+                    ),
+                    obscureText: true),
                 TextField(
                   enabled: _isCodeMatch,
                   controller: _newPasswordController2,
                   keyboardType: TextInputType.text,
-                  
                   decoration: InputDecoration(
                     labelText: 'Re-type Password',
                     icon: Icon(Icons.lock),
@@ -144,14 +139,13 @@ class _HomePageState extends State<ResetPassword> {
                   minWidth: 150,
                   height: 50,
                   color: Color.fromRGBO(40, 206, 209, 1),
-              textColor: Colors.white,
+                  textColor: Colors.white,
                   child: Text(
                     'Save',
                     style: new TextStyle(
-                        fontSize: 20.0,
-                        ),
+                      fontSize: 20.0,
+                    ),
                   ),
-                  
                   elevation: 15,
                   onPressed: _updatePassword,
                 ),
@@ -189,10 +183,9 @@ class _HomePageState extends State<ResetPassword> {
               duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
           if (res.body == "success") {
             pr.dismiss();
-             _securityCodeController.text = "";
+            _securityCodeController.text = "";
             _newPasswordController.text = "";
             _newPasswordController2.text = "";
-            
 
             Navigator.push(
                 context, MaterialPageRoute(builder: (context) => LoginPage()));
