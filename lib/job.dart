@@ -5,7 +5,11 @@ class Job {
       jobdes,
       jobprice,
       jobtime,
-      jobimage;
+      jobimage,
+      jobworker,
+      joblat,
+      joblon,
+      jobrating;
 
   Job(
       {this.jobid,
@@ -14,5 +18,9 @@ class Job {
       this.jobdes,
       this.jobprice,
       this.jobtime,
-      this.jobimage});
+      this.jobimage,
+      this.jobworker,
+      this.joblat,
+      this.joblon,
+      this.jobrating});
 }

@@ -2,7 +2,7 @@ import 'dart:async';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
-//import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:mytolongbeli/user.dart';
 import 'package:toast/toast.dart';
 import 'package:progress_dialog/progress_dialog.dart';
@@ -23,14 +23,14 @@ class _JobDetailState extends State<JobDetail> {
   @override
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(
-        SystemUiOverlayStyle(statusBarColor: Colors.deepOrange));
+        SystemUiOverlayStyle(statusBarColor: Colors.cyan));
     return WillPopScope(
       onWillPop: _onBackPressAppBar,
       child: Scaffold(
           resizeToAvoidBottomPadding: false,
           appBar: AppBar(
-            title: Text('JOB DETAILS'),
-            backgroundColor: Colors.deepOrange,
+            title: Text('STORE DETAILS'),
+            backgroundColor: Colors.cyanAccent,
           ),
           body: SingleChildScrollView(
             child: Container(
@@ -66,11 +66,11 @@ class DetailInterface extends StatefulWidget {
 }
 
 class _DetailInterfaceState extends State<DetailInterface> {
- // Completer<GoogleMapController> _controller = Completer();
- // CameraPosition _myLocation;
+  Completer<GoogleMapController> _controller = Completer();
+  CameraPosition _myLocation;
 
   @override
- /* void initState() {
+  void initState() {
     super.initState();
     _myLocation = CameraPosition(
       target: LatLng(
@@ -78,7 +78,7 @@ class _DetailInterfaceState extends State<DetailInterface> {
       zoom: 17,
     );
     print(_myLocation.toString());
-  }*/
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -111,25 +111,25 @@ class _DetailInterfaceState extends State<DetailInterface> {
               ),
               Table(children: [
                 TableRow(children: [
-                  Text("Job Description",
+                  Text("Store Description",
                       style: TextStyle(fontWeight: FontWeight.bold)),
                   Text(widget.job.jobdes),
                 ]),
                 TableRow(children: [
-                  Text("Job Price",
+                  Text("Item Price",
                       style: TextStyle(fontWeight: FontWeight.bold)),
                   Text("RM" + widget.job.jobprice),
                 ]),
-               /* TableRow(children: [
-                  Text("Job Location",
+                TableRow(children: [
+                  Text("Store Location",
                       style: TextStyle(fontWeight: FontWeight.bold)),
                   Text("")
-                ]),*/
+                ]),
               ]),
               SizedBox(
                 height: 10,
               ),
-            /*  Container(
+              Container(
                 height: 120,
                 width: 340,
                 child: GoogleMap(
@@ -143,7 +143,7 @@ class _DetailInterfaceState extends State<DetailInterface> {
                     _controller.complete(controller);
                   },
                 ),
-              ),*/
+              ),
               Container(
                 width: 350,
                 child: MaterialButton(
@@ -151,11 +151,11 @@ class _DetailInterfaceState extends State<DetailInterface> {
                       borderRadius: BorderRadius.circular(15.0)),
                   height: 40,
                   child: Text(
-                    'ACCEPT JOB',
+                    'ACCEPT ITEM',
                     style: TextStyle(fontSize: 16),
                   ),
-                  color: Colors.deepOrangeAccent,
-                  textColor: Colors.white,
+                  color: Colors.cyanAccent,
+                  textColor: Colors.black,
                   elevation: 5,
                   onPressed: _onAcceptJob,
                 ),
@@ -170,13 +170,13 @@ class _DetailInterfaceState extends State<DetailInterface> {
 
   void _onAcceptJob() {
      if (widget.user.email=="user@noregister"){
-      Toast.show("Please register to view accept jobs", context,
+      Toast.show("Please register to view accept items", context,
           duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
       return;
     }else{
       _showDialog();
     }
-    print("Accept Job");
+    print("Accept Store");
     
   }
 
@@ -219,7 +219,7 @@ class _DetailInterfaceState extends State<DetailInterface> {
     String urlLoadJobs = "http://michannael.com/mytolongbeli/php/accept_job.php";
     ProgressDialog pr = new ProgressDialog(context,
         type: ProgressDialogType.Normal, isDismissible: false);
-    pr.style(message: "Accepting Job");
+    pr.style(message: "Accepting Item");
     pr.show();
     http.post(urlLoadJobs, body: {
       "jobid": widget.job.jobid,

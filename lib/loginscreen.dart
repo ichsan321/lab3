@@ -7,8 +7,9 @@ import 'package:toast/toast.dart';
 import 'package:http/http.dart' as http;
 import 'package:progress_dialog/progress_dialog.dart';
 import 'user.dart';
+import 'package:mytolongbeli/forgotpassword.dart';
 
-
+String urlSecurityCodeForResetPass ="http://michannael.com/mytolongbeli/php/secure_code.php";
 String urlLogin = "http://michannael.com/mytolongbeli/php/login_user.php";
 final TextEditingController _emcontroller = TextEditingController();
 String _email = "";
@@ -111,11 +112,11 @@ class _LoginPageState extends State<LoginPage> {
                 GestureDetector(
                     onTap: _onForgot,
                     child:
-                        Text('Forgot Account', style: TextStyle(fontSize: 16))),
+                        Text('Forgot Password', style: TextStyle(fontSize: 16))),
               ],
             ),
           ),
-        )));
+    )));
   }
 
   void _onLogin() {
@@ -163,7 +164,56 @@ class _LoginPageState extends State<LoginPage> {
 
   void _onForgot() {
     print('Forgot');
+      _email = _emcontroller.text;
+
+    if (_isEmailValid(_email)) {
+      ProgressDialog pr = new ProgressDialog(context,
+          type: ProgressDialogType.Normal, isDismissible: false);
+      pr.style(message: "Sending Email");
+      pr.show();
+      http.post(urlSecurityCodeForResetPass, body: {
+        "email": _email,
+        "password": _password,
+      }).then((res) {
+        print("secure code : " + res.body);
+        if (res.body == "error") {
+          pr.dismiss();
+
+          Toast.show('error', context,
+              duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
+        } else {
+          pr.dismiss();
+
+          _saveEmailForPassReset(_email);
+          _saveSecureCode(res.body);
+
+          Toast.show('Security code sent to your email', context,
+              duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
+
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => ResetPassword()));
+        }
+      }).catchError((err) {
+        pr.dismiss();
+        print(err);
+      });
+    } else {
+      Toast.show('Please put the email first', context,
+          duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
+    }
   }
+  void _saveEmailForPassReset(String code) async {
+    print('saving preferences');
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setString('resetPassEmail', code);
+  }
+
+  void _saveSecureCode(String code) async {
+    print('saving preferences');
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setString('secureCode', code);
+  }
+
 
   void _onChange(bool value) {
     setState(() {

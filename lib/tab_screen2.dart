@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-//import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:mytolongbeli/newjob.dart';
-//import 'package:geolocator/geolocator.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:flutter/services.dart';
 import 'package:mytolongbeli/registrationscreen.dart';
 import 'package:mytolongbeli/user.dart';
@@ -23,17 +23,17 @@ class TabScreen2 extends StatefulWidget {
 class _TabScreen2State extends State<TabScreen2> {
   GlobalKey<RefreshIndicatorState> refreshKey;
 
- // final Geolocator geolocator = Geolocator()..forceAndroidLocationManager;
-  //Position _currentPosition;
-  //String _currentAddress = "Searching current location...";
+ final Geolocator geolocator = Geolocator()..forceAndroidLocationManager;
+ Position _currentPosition;
+  String _currentAddress = "Searching current location...";
   List data;
 
   @override
   void initState() {
     super.initState();
-    init();
+    //init();
     refreshKey = GlobalKey<RefreshIndicatorState>();
-    //_getCurrentLocation();
+    _getCurrentLocation();
   }
 
   @override
@@ -49,7 +49,7 @@ class _TabScreen2State extends State<TabScreen2> {
               backgroundColor: Colors.cyan,
               elevation: 2.0,
               onPressed: requestNewJob,
-              tooltip: 'Request new help',
+              tooltip: 'Request new Store',
             ),
             body: RefreshIndicator(
               key: refreshKey,
@@ -118,8 +118,8 @@ class _TabScreen2State extends State<TabScreen2> {
                                                 SizedBox(
                                                   width: 5,
                                                 ),
-                                                Flexible(
-                                                  child: Text(""/*_currentAddress*/),
+                                                Flexible(// current address dari user 
+                                                  child: Text(_currentAddress),
                                                 ),
                                               ],
                                             ),
@@ -131,8 +131,8 @@ class _TabScreen2State extends State<TabScreen2> {
                                                   width: 5,
                                                 ),
                                                 Flexible(
-                                                  child: Text(
-                                                      "Job Radius within " +
+                                                  child: Text( // Radius dari user 
+                                                      "Store Radius within " +
                                                       widget.user.radius+
                                                           " KM"),
                                                 ),
@@ -145,7 +145,7 @@ class _TabScreen2State extends State<TabScreen2> {
                                                 SizedBox(
                                                   width: 5,
                                                 ),
-                                                Flexible(
+                                                Flexible(// Rating dari user
                                                   child: Text("You have " +
                                                   widget.user.credit+
                                                    " Credit"),
@@ -166,7 +166,7 @@ class _TabScreen2State extends State<TabScreen2> {
                             Container(
                               color: Colors.cyan,
                               child: Center(
-                                child: Text("Your Posted Jobs ",
+                                child: Text("Your Posted Store ",
                                     style: TextStyle(
                                         fontSize: 16,
                                         fontWeight: FontWeight.bold,
@@ -180,7 +180,7 @@ class _TabScreen2State extends State<TabScreen2> {
                     if (index == data.length && perpage > 1) {
                       return Container(
                         width: 250,
-                        color: Colors.white,
+                        color: Colors.cyan,
                         child: MaterialButton(
                           child: Text(
                             "Load More",
@@ -197,8 +197,8 @@ class _TabScreen2State extends State<TabScreen2> {
                         elevation: 2,
                         child: InkWell(
                           onLongPress: () => _onJobDelete(
-                            
-                              ),
+                               data[index]['jobid'].toString(),
+                              data[index]['jobtitle'].toString()),
                           child: Padding(
                             padding: const EdgeInsets.all(2.0),
                             child: Row(
@@ -226,7 +226,7 @@ class _TabScreen2State extends State<TabScreen2> {
                                             style: TextStyle(
                                                 fontSize: 16,
                                                 fontWeight: FontWeight.bold)),
-                                        /*RatingBar(
+                                        RatingBar(
                                           itemCount: 5,
                                           itemSize: 12,
                                           initialRating: double.parse(
@@ -238,7 +238,7 @@ class _TabScreen2State extends State<TabScreen2> {
                                             Icons.star,
                                             color: Colors.amber,
                                           ), onRatingUpdate: (double value) {},
-                                        ),*/
+                                        ),
                                         SizedBox(
                                           height: 5,
                                         ),
@@ -261,7 +261,7 @@ class _TabScreen2State extends State<TabScreen2> {
             )));
   }
 
-  /*_getCurrentLocation() async {
+  _getCurrentLocation() async {
     geolocator
         .getCurrentPosition(desiredAccuracy: LocationAccuracy.best)
         .then((Position position) {
@@ -273,9 +273,9 @@ class _TabScreen2State extends State<TabScreen2> {
     }).catchError((e) {
       print(e);
     });
-  }*/
+  }
 
-  /*_getAddressFromLatLng() async {
+  _getAddressFromLatLng() async {
     try {
       List<Placemark> p = await geolocator.placemarkFromCoordinates(
           _currentPosition.latitude, _currentPosition.longitude);
@@ -290,13 +290,13 @@ class _TabScreen2State extends State<TabScreen2> {
     } catch (e) {
       print(e);
     }
-  }*/
+  }
 
   Future<String> makeRequest() async {
     String urlLoadJobs = "http://michannael.com/mytolongbeli/php/load_job_user.php";
      ProgressDialog pr = new ProgressDialog(context,
         type: ProgressDialogType.Normal, isDismissible: false);
-        pr.style(message: "Loading All Accepted Jobs");
+        pr.style(message: "Loading All Accepted Store");
     pr.show();
     http.post(urlLoadJobs, body: {
       "email": widget.user.email ?? "notavail",
@@ -319,7 +319,7 @@ class _TabScreen2State extends State<TabScreen2> {
 
  Future init() async {
     if (widget.user.email=="user@noregister"){
-      Toast.show("Please register to view posted jobs", context,
+      Toast.show("Please register to view posted Store", context,
           duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
       return;
     }else{
@@ -344,7 +344,7 @@ class _TabScreen2State extends State<TabScreen2> {
                     user: widget.user,
                   )));
     } else {
-      Toast.show("Please Register First to request new job", context,
+      Toast.show("Please Register First to request new store", context,
           duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
       Navigator.push(
           context,
@@ -353,12 +353,12 @@ class _TabScreen2State extends State<TabScreen2> {
     }
   }
 
-  void _onJobDelete() {
-    print("Delete ");
-    //_showDialog(jobid, jobname);
+  void _onJobDelete(String jobid, String jobname) {
+    print("Delete "+jobid);
+    _showDialog(jobid, jobname);
   }
 
-  /*void _showDialog(String jobid, String jobname) {
+  void _showDialog(String jobid, String jobname) {
     // flutter defined function
     showDialog(
       context: context,
@@ -386,13 +386,13 @@ class _TabScreen2State extends State<TabScreen2> {
         );
       },
     );
-  }*/
+  }
 
   Future<String> deleteRequest(String jobid) async {
     String urlLoadJobs = "http://michannael.com/mytolongbeli/php/delete_job.php";
     ProgressDialog pr = new ProgressDialog(context,
         type: ProgressDialogType.Normal, isDismissible: false);
-    pr.style(message: "Deleting Jobs");
+    pr.style(message: "Deleting Store");
     pr.show();
     http.post(urlLoadJobs, body: {
       "jobid": jobid,
@@ -401,7 +401,7 @@ class _TabScreen2State extends State<TabScreen2> {
       if (res.body == "success") {
         Toast.show("Success", context,
             duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
-        //init();
+        init();
       } else {
         Toast.show("Failed", context,
             duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);

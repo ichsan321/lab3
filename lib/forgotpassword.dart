@@ -36,6 +36,8 @@ class _HomePageState extends State<ResetPassword> {
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(
+        SystemUiOverlayStyle(statusBarColor: Colors.cyan));
     return WillPopScope(
       onWillPop: _onBackPressAppBar,
       child: Scaffold(

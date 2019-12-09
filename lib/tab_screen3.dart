@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-//import 'package:geolocator/geolocator.dart';
+//import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:flutter/services.dart';
 import 'package:mytolongbeli/user.dart';
 import 'package:progress_dialog/progress_dialog.dart';
@@ -22,8 +22,8 @@ class TabScreen3 extends StatefulWidget {
 class _TabScreen3State extends State<TabScreen3> {
   GlobalKey<RefreshIndicatorState> refreshKey;
 
-  //final Geolocator geolocator = Geolocator()..forceAndroidLocationManager;
-  //Position _currentPosition;
+  final Geolocator geolocator = Geolocator()..forceAndroidLocationManager;
+  Position _currentPosition;
   String _currentAddress = "Searching current location...";
   List data;
 
@@ -31,7 +31,7 @@ class _TabScreen3State extends State<TabScreen3> {
   void initState() {
     super.initState();
     refreshKey = GlobalKey<RefreshIndicatorState>();
-    //_getCurrentLocation();
+    _getCurrentLocation();
   }
 
   @override
@@ -58,7 +58,7 @@ class _TabScreen3State extends State<TabScreen3> {
                           children: <Widget>[
                             Stack(children: <Widget>[
                               Image.asset(
-                                "asset/images/background2.png",
+                                "asset/images/background2.jpg",
                                 fit: BoxFit.fitWidth,
                               ),
                               Column(
@@ -158,7 +158,7 @@ class _TabScreen3State extends State<TabScreen3> {
                             Container(
                               color: Colors.cyan,
                               child: Center(
-                                child: Text("My Accepted Jobs ",
+                                child: Text("My Accepted Store ",
                                     style: TextStyle(
                                         fontSize: 16,
                                         fontWeight: FontWeight.bold,
@@ -214,7 +214,7 @@ class _TabScreen3State extends State<TabScreen3> {
                                             style: TextStyle(
                                                 fontSize: 16,
                                                 fontWeight: FontWeight.bold)),
-                                        RatingBar(
+                                       /* RatingBar(
                                           itemCount: 5,
                                           itemSize: 12,
                                           initialRating: double.parse(
@@ -226,7 +226,7 @@ class _TabScreen3State extends State<TabScreen3> {
                                             Icons.star,
                                             color: Colors.amber,
                                           ),
-                                        ),
+                                        ),*/
                                         SizedBox(
                                           height: 5,
                                         ),
@@ -249,7 +249,7 @@ class _TabScreen3State extends State<TabScreen3> {
             )));
   }
 
- /* _getCurrentLocation() async {
+ _getCurrentLocation() async {
     geolocator
         .getCurrentPosition(desiredAccuracy: LocationAccuracy.best)
         .then((Position position) {
@@ -261,9 +261,9 @@ class _TabScreen3State extends State<TabScreen3> {
     }).catchError((e) {
       print(e);
     });
-  }*/
+  }
 
-  /*_getAddressFromLatLng() async {
+  _getAddressFromLatLng() async {
     try {
       List<Placemark> p = await geolocator.placemarkFromCoordinates(
           _currentPosition.latitude, _currentPosition.longitude);
@@ -278,13 +278,13 @@ class _TabScreen3State extends State<TabScreen3> {
     } catch (e) {
       print(e);
     }
-  }*/
+  }
 
   Future<String> makeRequest() async {
     String urlLoadJobs = "http://michannael.com/mytolongbeli/php/load_accepted_jobs.php";
     ProgressDialog pr = new ProgressDialog(context,
         type: ProgressDialogType.Normal, isDismissible: false);
-    pr.style(message: "Loading All Accepted Jobs");
+    pr.style(message: "Loading All Accepted Store");
     pr.show();
     http.post(urlLoadJobs, body: {
       "email": widget.user.email ?? "notavail",
@@ -307,7 +307,7 @@ class _TabScreen3State extends State<TabScreen3> {
 
   Future init() async {
     if (widget.user.email=="user@noregister"){
-      Toast.show("Please register to view accepted Jobs", context,
+      Toast.show("Please register to view a store", context,
           duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
       return;
     }else{

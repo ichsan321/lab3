@@ -4,8 +4,8 @@ import 'package:http/http.dart' as http;
 import 'package:mytolongbeli/job.dart';
 import 'package:mytolongbeli/jobdetail.dart';
 import 'dart:convert';
-//import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-//import 'package:geolocator/geolocator.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:flutter/services.dart';
 //import 'package:mytolongbeli/mainscreen.dart';
 import 'package:mytolongbeli/user.dart';
@@ -28,8 +28,8 @@ class TabScreen extends StatefulWidget {
 class _TabScreenState extends State<TabScreen> {
   GlobalKey<RefreshIndicatorState> refreshKey;
 
- // final Geolocator geolocator = Geolocator()..forceAndroidLocationManager;
- // Position _currentPosition;
+  final Geolocator geolocator = Geolocator()..forceAndroidLocationManager;
+  Position _currentPosition;
   String _currentAddress = "Searching current location...";
   List data;
 
@@ -37,14 +37,14 @@ class _TabScreenState extends State<TabScreen> {
   void initState() {
     super.initState();
     refreshKey = GlobalKey<RefreshIndicatorState>();
-    //_getCurrentLocation();
+    _getCurrentLocation();
   }
 
   @override
   Widget build(BuildContext context) {
     
    SystemChrome.setSystemUIOverlayStyle(
-        SystemUiOverlayStyle(statusBarColor: Colors.cyan));
+        SystemUiOverlayStyle(statusBarColor: Colors.deepOrange));
     return MaterialApp(
         debugShowCheckedModeBanner: false,
         home: Scaffold(
@@ -75,11 +75,11 @@ class _TabScreenState extends State<TabScreen> {
                                     height: 20,
                                   ),
                                   Center(
-                                    child: Text("MyTolongBeli",
+                                    child: Text("MyHelper",
                                         style: TextStyle(
                                             fontSize: 24,
                                             fontWeight: FontWeight.bold,
-                                            color: Colors.black)),
+                                            color: Colors.white)),
                                   ),
                                   SizedBox(height: 10),
                                   Container(
@@ -164,13 +164,13 @@ class _TabScreenState extends State<TabScreen> {
                               height: 4,
                             ),
                             Container(
-                              color: Colors.cyan,
+                              color: Colors.deepOrange,
                               child: Center(
                                 child: Text("Jobs Available Today",
                                     style: TextStyle(
                                         fontSize: 16,
                                         fontWeight: FontWeight.bold,
-                                        color: Colors.black)),
+                                        color: Colors.white)),
                               ),
                             ),
                           ],
@@ -204,10 +204,10 @@ class _TabScreenState extends State<TabScreen> {
                             data[index]['jobimage'],
                             data[index]['jobtime'],
                             data[index]['jobtitle'],
-                            //data[index]['joblatitude'],
-                            //data[index]['joblongitude'],
-                            //data[index]['jobrating'],
-                            //widget.user.radius,
+                            data[index]['joblatitude'],
+                            data[index]['joblongitude'],
+                            data[index]['jobrating'],
+                            widget.user.radius,
                             widget.user.name,
                             widget.user.credit,
                           ),
@@ -238,7 +238,7 @@ class _TabScreenState extends State<TabScreen> {
                                             style: TextStyle(
                                                 fontSize: 16,
                                                 fontWeight: FontWeight.bold)),
-                                      /*  RatingBar(
+                                        RatingBar(
                                           itemCount: 5,
                                           itemSize: 12,
                                           initialRating: double.parse(data[index]['jobrating']
@@ -249,7 +249,7 @@ class _TabScreenState extends State<TabScreen> {
                                             Icons.star,
                                             color: Colors.amber,
                                           ),
-                                        ),*/
+                                        ),
                                         SizedBox(
                                           height: 5,
                                         ),
@@ -272,7 +272,7 @@ class _TabScreenState extends State<TabScreen> {
             )));
   }
 
-  /*_getCurrentLocation() async {
+  _getCurrentLocation() async {
     geolocator
         .getCurrentPosition(desiredAccuracy: LocationAccuracy.best)
         .then((Position position) {
@@ -284,9 +284,9 @@ class _TabScreenState extends State<TabScreen> {
     }).catchError((e) {
       print(e);
     });
-  }*/
+  }
 
-  /*_getAddressFromLatLng() async {
+  _getAddressFromLatLng() async {
     try {
       List<Placemark> p = await geolocator.placemarkFromCoordinates(
           _currentPosition.latitude, _currentPosition.longitude);
@@ -301,7 +301,7 @@ class _TabScreenState extends State<TabScreen> {
     } catch (e) {
       print(e);
     }
-  }*/
+  }
 
   Future<String> makeRequest() async {
     String urlLoadJobs = "http://michannael.com/mytolongbeli/php/load_jobs.php";
@@ -311,9 +311,9 @@ class _TabScreenState extends State<TabScreen> {
     pr.show();
     http.post(urlLoadJobs, body: {
       "email": widget.user.email ?? "notavail",
-    //  "latitude": _currentPosition.latitude.toString(),
-    //"longitude": _currentPosition.longitude.toString(),
-    //  "radius": widget.user.radius ?? "10",
+      "latitude": _currentPosition.latitude.toString(),
+      "longitude": _currentPosition.longitude.toString(),
+      "radius": widget.user.radius ?? "10",
     }).then((res) {
       setState(() {
         var extractdata = json.decode(res.body);
@@ -351,8 +351,12 @@ class _TabScreenState extends State<TabScreen> {
       String jobimage,
       String jobtime,
       String jobtitle,
+      String joblatitude,
+      String joblongitude,
+      String jobrating,
       String email,
-      String name) {
+      String name,
+      String credit) {
     Job job = new Job(
         jobid: jobid,
         jobtitle: jobtitle,
@@ -360,12 +364,11 @@ class _TabScreenState extends State<TabScreen> {
         jobdes: jobdesc,
         jobprice: jobprice,
         jobtime: jobtime,
-        jobimage: jobimage
-        //jobworker: null,
-        //joblat: joblatitude,
-        //joblon: joblongitude,
-       // jobrating:jobrating 
-       );
+        jobimage: jobimage,
+        jobworker: null,
+        joblat: joblatitude,
+        joblon: joblongitude,
+        jobrating:jobrating );
     //print(data);
     
     Navigator.push(context, SlideRightRoute(page: JobDetail(job: job, user: widget.user)));

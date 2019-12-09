@@ -111,7 +111,7 @@ void loadpref(BuildContext ctx) async {
         name: "not register",
         email: "user@noregister",
         phone: "not register",
-        radius: "10",
+        radius: "15",
         credit: "0",
         rating: "0"
         );
@@ -141,8 +141,7 @@ void _onLogin(String email, String pass, BuildContext ctx) {
           phone: dres[3],
           radius: dres[4],
           credit: dres[5],
-          rating: dres[6]
-          );
+          rating: dres[6]);
       Navigator.push(
           ctx, MaterialPageRoute(builder: (context) => MainScreen(user: user)));
     } else {
@@ -151,7 +150,7 @@ void _onLogin(String email, String pass, BuildContext ctx) {
           name: "not register",
           email: "user@noregister",
           phone: "not register",
-          radius: "10",
+          radius: "15",
           credit: "0",
           rating: "0"
           );

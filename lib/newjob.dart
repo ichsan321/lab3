@@ -6,21 +6,22 @@ import 'package:mytolongbeli/mainscreen.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:mytolongbeli/user.dart';
 import 'package:toast/toast.dart';
-//import 'package:geolocator/geolocator.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:flutter/services.dart';
 import 'package:progress_dialog/progress_dialog.dart';
-//import 'package:place_picker/place_picker.dart';
+import 'package:place_picker/place_picker.dart';
+
 File _image;
-String pathAsset = 'asset/images/profile1.png';
+String pathAsset = 'asset/images/keranjang.png';
 String urlUpload = "http://michannael.com/mytolongbeli/php/upload_job.php";
 String urlgetuser = "http://michannael.com/mytolongbeli/php/get_user.php";
 
 final TextEditingController _jobcontroller = TextEditingController();
 final TextEditingController _desccontroller = TextEditingController();
 final TextEditingController _pricecontroller = TextEditingController();
-//final Geolocator geolocator = Geolocator()..forceAndroidLocationManager;
-//Position _currentPosition;
-//String _currentAddress = "Searching your current location...";
+final Geolocator geolocator = Geolocator()..forceAndroidLocationManager;
+Position _currentPosition;
+String _currentAddress = "Searching your current location...";
 
 class NewJob extends StatefulWidget {
   final User user;
@@ -39,7 +40,7 @@ class _NewJobState extends State<NewJob> {
       child: Scaffold(
           //resizeToAvoidBottomPadding: false,
           appBar: AppBar(
-            title: Text('REQUEST HELP'),
+            title: Text('REQUEST STORE'),
             backgroundColor: Colors.cyanAccent,
           ),
           body: SingleChildScrollView(
@@ -76,7 +77,7 @@ class _CreateNewJobState extends State<CreateNewJob> {
   @override
  void initState() {
     super.initState();
-    //_getCurrentLocation();
+    _getCurrentLocation();
   }
 
   @override
@@ -95,19 +96,34 @@ class _CreateNewJobState extends State<CreateNewJob> {
                 fit: BoxFit.fill,
               )),
             )),
-        Text('Click on image above to take job picture'),
+        Text('Click on image above to take Item picture'),
+        SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Row(
+            children: <Widget>[
+              new IconButton(iconSize: 40, icon: new Icon(Icons.directions_bike), onPressed: _changeJob),
+                           new IconButton(iconSize: 40, icon: new Icon(Icons.fastfood), onPressed: _changeFood),
+                                                      new IconButton(iconSize: 40, icon: new Icon(Icons.directions_bike), onPressed: null),
+                                                      new IconButton(iconSize: 40, icon: new Icon(Icons.directions_bike), onPressed: null),
+                                                      new IconButton(iconSize: 40, icon: new Icon(Icons.directions_bike), onPressed: null),
+                                                      new IconButton(iconSize: 40, icon: new Icon(Icons.directions_bike), onPressed: null),
+                                                      new IconButton(iconSize: 40, icon: new Icon(Icons.directions_bike), onPressed: null),
+                                                      new IconButton(iconSize: 40, icon: new Icon(Icons.directions_bike), onPressed: null),
+                                                     ],
+                                                   ),
+                                                 ),
         TextField(
             controller: _jobcontroller,
             keyboardType: TextInputType.emailAddress,
             decoration: InputDecoration(
-              labelText: 'Job Title',
+              labelText: 'Store Title',
               icon: Icon(Icons.title),
             )),
         TextField(
             controller: _pricecontroller,
             keyboardType: TextInputType.number,
             decoration: InputDecoration(
-              labelText: 'Job Price',
+              labelText: 'Item Price',
               icon: Icon(Icons.attach_money),
             )),
         TextField(
@@ -116,20 +132,20 @@ class _CreateNewJobState extends State<CreateNewJob> {
             textInputAction: TextInputAction.previous,
             maxLines: 3,
             decoration: InputDecoration(
-              labelText: 'Job Description',
+              labelText: 'Item Description',
               icon: Icon(Icons.info),
             )),
         SizedBox(
           height: 5,
         ),
-      /*  GestureDetector(
+        GestureDetector(
             onTap: _loadmap,
             child: Container(
               alignment: Alignment.topLeft,
-              child: Text("Job Location",
+              child: Text("Store Location",
                   style: TextStyle(
                       fontWeight: FontWeight.bold)),
-            )),*/
+            )),
         SizedBox(
           height: 5,
         ),
@@ -139,7 +155,7 @@ class _CreateNewJobState extends State<CreateNewJob> {
             SizedBox(
               width: 10,
             ),
-            Flexible(child: Text(""/*_currentAddress*/),) 
+            Flexible(child: Text(_currentAddress),) 
           ],
         ),
         SizedBox(
@@ -150,7 +166,7 @@ class _CreateNewJobState extends State<CreateNewJob> {
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
           minWidth: 300,
           height: 50,
-          child: Text('Request New Job'),
+          child: Text('Request New Store'),
           color: Colors.cyanAccent,
           textColor: Colors.black,
           elevation: 15,
@@ -162,7 +178,7 @@ class _CreateNewJobState extends State<CreateNewJob> {
 
   void _choose() async {
     _image =
-        await ImagePicker.pickImage(source: ImageSource.camera, maxHeight: 400);
+    await ImagePicker.pickImage(source: ImageSource.camera, maxHeight: 400);
     setState(() {});
     //_image = await ImagePicker.pickImage(source: ImageSource.gallery);
   }
@@ -174,12 +190,12 @@ class _CreateNewJobState extends State<CreateNewJob> {
       return;
     }
     if (_jobcontroller.text.isEmpty) {
-      Toast.show("Please enter job title", context,
+      Toast.show("Please enter item title", context,
           duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
       return;
     }
     if (_pricecontroller.text.isEmpty) {
-      Toast.show("Please enter job price", context,
+      Toast.show("Please enter item price", context,
           duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
       return;
     }
@@ -188,9 +204,9 @@ class _CreateNewJobState extends State<CreateNewJob> {
     pr.style(message: "Requesting...");
     pr.show();
     String base64Image = base64Encode(_image.readAsBytesSync());
-    /*print(_currentPosition.latitude.toString() +
+    print(_currentPosition.latitude.toString() +
         "/" +
-        _currentPosition.longitude.toString());*/
+        _currentPosition.longitude.toString());
 
     http.post(urlUpload, body: {
       "encoded_string": base64Image,
@@ -198,8 +214,8 @@ class _CreateNewJobState extends State<CreateNewJob> {
       "jobtitle": _jobcontroller.text,
       "jobdesc": _desccontroller.text,
       "jobprice": _pricecontroller.text,
-      //"latitude": _currentPosition.latitude.toString(),
-      //"longitude": _currentPosition.longitude.toString(),
+      "latitude": _currentPosition.latitude.toString(),
+      "longitude": _currentPosition.longitude.toString(),
       "credit": widget.user.credit,
       "rating": widget.user.rating
     }).then((res) {
@@ -225,7 +241,7 @@ class _CreateNewJobState extends State<CreateNewJob> {
     });
   }
 
-  /*_getCurrentLocation() async {
+  _getCurrentLocation() async {
     geolocator
         .getCurrentPosition(desiredAccuracy: LocationAccuracy.best)
         .then((Position position) {
@@ -238,9 +254,9 @@ class _CreateNewJobState extends State<CreateNewJob> {
     }).catchError((e) {
       print(e);
     });
-  }*/
+  }
 
- /* _getAddressFromLatLng() async {
+ _getAddressFromLatLng() async {
     try {
       List<Placemark> p = await geolocator.placemarkFromCoordinates(
           _currentPosition.latitude, _currentPosition.longitude);
@@ -254,7 +270,7 @@ class _CreateNewJobState extends State<CreateNewJob> {
     } catch (e) {
       print(e);
     }
-  }*/
+  }
 
   void _onLogin(String email, BuildContext ctx) {
     http.post(urlgetuser, body: {
@@ -280,12 +296,18 @@ class _CreateNewJobState extends State<CreateNewJob> {
     });
   }
 
-  /*void _loadmap() async  {
+  void _loadmap() async  {
     LocationResult result = await Navigator.of(context).push(
         MaterialPageRoute(builder: (context) => PlacePicker("AIzaSyAvIHhXiQ7TxWE2L7WY_qP2WpBDrR7TWHk")));
 
     // Handle the result in your way
     print("MAP SHOW:");
     print(result);
-  }*/
-}
+  }
+    void _changeJob() {
+             _jobcontroller.text = "Runner";
+       }
+                           
+     void _changeFood() {
+     _jobcontroller.text = "Order Food";
+     }}

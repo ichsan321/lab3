@@ -10,6 +10,8 @@
     <application
         android:name="io.flutter.app.FlutterApplication"
         android:label="mytolongbeli"
+        android:usesCleartextTraffic="true"
+        android:networkSecurityConfig="@xml/network_security_config"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"
@@ -30,5 +32,8 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+        <meta-data android:name="com.google.android.geo.API_KEY"
+               android:value="AIzaSyCGNpWzJBpO0o75BJjebMGagglst5EB62E"/>
+               <uses-library android:name="org.apache.http.legacy" android:required="false"/>
     </application>
 </manifest>
