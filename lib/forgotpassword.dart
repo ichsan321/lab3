@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'loginscreen.dart';
+import 'package:mytolongbeli/loginscreen.dart';
+//import 'theme/theme.dart' as Theme;
 import 'package:toast/toast.dart';
 import 'package:progress_dialog/progress_dialog.dart';
 import 'package:http/http.dart' as http;
@@ -19,7 +20,6 @@ String _newPassword2 = "";
 bool _isCodeMatch = false;
 String urlResetPass =
     'http://michannael.com/mytolongbeli/php/forgot_password.php';
-
 String _email = "";
 
 class ResetPassword extends StatefulWidget {
@@ -28,29 +28,33 @@ class ResetPassword extends StatefulWidget {
 }
 
 class _HomePageState extends State<ResetPassword> {
+ // static const String _themePreferenceKey = 'isDark';
+  FocusNode focusNode;
+
   @override
   void initState() {
-    _loadResetEmail();
     super.initState();
+
+    focusNode = FocusNode();
+    _loadResetEmail();
+  }
+
+  @override
+  void dispose() {
+    focusNode.dispose();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setSystemUIOverlayStyle(
-        SystemUiOverlayStyle(statusBarColor: Colors.cyan));
     return WillPopScope(
       onWillPop: _onBackPressAppBar,
       child: Scaffold(
         resizeToAvoidBottomPadding: false,
-        body: new Container(
-          decoration: new BoxDecoration(
-              image: new DecorationImage(
-                  image: AssetImage('asset/images/background1.jpg'),
-                  fit: BoxFit.fill)),
+        body: SingleChildScrollView(
           child: new Container(
             padding: EdgeInsets.all(30),
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 SizedBox(
                   height: 20,
@@ -60,51 +64,50 @@ class _HomePageState extends State<ResetPassword> {
                   keyboardType: TextInputType.text,
                   decoration: InputDecoration(
                     labelText: 'Security Code',
-                    labelStyle: new TextStyle(
-                        color: Colors.black, fontWeight: FontWeight.bold),
                     icon: Icon(Icons.lock),
                   ),
                 ),
                 SizedBox(
                   height: 20,
                 ),
-                Column(
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     SizedBox(
-                      height: 10,
+                      width: 25,
                     ),
                     MaterialButton(
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(5.0)),
-                      minWidth: 150,
+                      minWidth: 100,
                       height: 50,
-                      color: Color.fromRGBO(40, 206, 209, 1),
-                      textColor: Colors.white,
                       child: Text(
                         'Cancel',
                         style: new TextStyle(
-                          fontSize: 20.0,
-                        ),
+                            fontSize: 20.0,
+                           // color: Theme.darkThemeData.primaryColorDark
+                            ),
                       ),
+                     // color: Theme.darkThemeData.primaryColor,
                       elevation: 15,
                       onPressed: _cancel,
                     ),
                     SizedBox(
-                      height: 20,
+                      width: 20,
                     ),
                     MaterialButton(
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(5.0)),
-                      minWidth: 150,
+                      minWidth: 100,
                       height: 50,
-                      color: Color.fromRGBO(40, 206, 209, 1),
-                      textColor: Colors.white,
                       child: Text(
                         'OK',
                         style: new TextStyle(
-                          fontSize: 20.0,
-                        ),
+                            fontSize: 20.0,
+                            //color: Theme.darkThemeData.primaryColorDark
+                            ),
                       ),
+                    //  color: Theme.darkThemeData.primaryColor,
                       elevation: 15,
                       onPressed: _checkCode,
                     ),
@@ -114,6 +117,7 @@ class _HomePageState extends State<ResetPassword> {
                   height: 30,
                 ),
                 TextField(
+                    focusNode: focusNode,
                     enabled: _isCodeMatch,
                     controller: _newPasswordController,
                     keyboardType: TextInputType.text,
@@ -140,14 +144,14 @@ class _HomePageState extends State<ResetPassword> {
                       borderRadius: BorderRadius.circular(5.0)),
                   minWidth: 150,
                   height: 50,
-                  color: Color.fromRGBO(40, 206, 209, 1),
-                  textColor: Colors.white,
                   child: Text(
                     'Save',
                     style: new TextStyle(
-                      fontSize: 20.0,
-                    ),
+                        fontSize: 20.0,
+                        //color: Theme.darkThemeData.primaryColorDark
+                        ),
                   ),
+                 // color: Theme.darkThemeData.primaryColor,
                   elevation: 15,
                   onPressed: _updatePassword,
                 ),
@@ -174,11 +178,14 @@ class _HomePageState extends State<ResetPassword> {
       if (_newPassword == _newPassword2) {
         ProgressDialog pr = new ProgressDialog(context,
             type: ProgressDialogType.Normal, isDismissible: false);
+
+        print(_newPassword);
+
         pr.style(message: "Updating Password");
         pr.show();
         http.post(urlResetPass, body: {
           "email": _email,
-          "password": _newPassword,
+          "newPassword": _newPassword,
         }).then((res) {
           print("Password update : " + res.body);
           Toast.show(res.body, context,
@@ -188,6 +195,8 @@ class _HomePageState extends State<ResetPassword> {
             _securityCodeController.text = "";
             _newPasswordController.text = "";
             _newPasswordController2.text = "";
+
+            _removePrefsExceptTheme();
 
             Navigator.push(
                 context, MaterialPageRoute(builder: (context) => LoginPage()));
@@ -208,10 +217,21 @@ class _HomePageState extends State<ResetPassword> {
     }
   }
 
-  void _cancel() async {
+  void _removePrefsExceptTheme() async {
+   // bool theme;
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.remove('secureCode');
-    prefs.remove('resetPassEmail');
+  //  theme = prefs.getBool(_themePreferenceKey); //get theme value
+    prefs.clear(); //clear preferences
+    //prefs.setBool(_themePreferenceKey, theme); //put back theme in preferences
+  }
+
+  void _cancel() async {
+    _removePrefsExceptTheme();
+
+    _securityCodeController.text = "";
+    _newPasswordController.text = "";
+    _newPasswordController2.text = "";
+    _isCodeMatch = false;
 
     Navigator.pushReplacement(
         context,
@@ -223,15 +243,18 @@ class _HomePageState extends State<ResetPassword> {
   void _checkCode() {
     _secureCode = _securityCodeController.text;
 
-    print("user input secure code : $_secureCode");
-
     _loadCode().then((onValue) {
       if (_secureCode == onValue) {
-        _isCodeMatch = true;
+        setState(() {
+          _isCodeMatch = true;
+        });
 
         Toast.show('Correct Code', context,
             duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
-        setState(() {});
+        //500 milis delay, give time to enable password text field
+        Future.delayed(const Duration(milliseconds: 500), () {
+          FocusScope.of(context).requestFocus(focusNode);
+        });
       } else {
         _isCodeMatch = false;
         Toast.show('Wrong Code', context,

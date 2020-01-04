@@ -36,7 +36,7 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   @override
   void initState() {
-    loadpref();
+  //  loadpref();
     print('Init: $_email');
     super.initState();
   }
@@ -61,33 +61,105 @@ class _LoginPageState extends State<LoginPage> {
               children: <Widget>[
                 Image.asset(
                   'asset/images/mytolongbeli.png',
-                  scale: 3.5,
+                  scale: 3,
                 ),
-                TextField(
-                    controller: _emcontroller,
-                    keyboardType: TextInputType.emailAddress,
-                    decoration: InputDecoration(
-                        labelText: 'Email', icon: Icon(Icons.email))),
-                TextField(
-                  controller: _passcontroller,
-                  decoration: InputDecoration(
-                      labelText: 'Password', icon: Icon(Icons.lock)),
-                  obscureText: true,
+                  SizedBox(
+                  height: 10,
                 ),
+               TextField(
+          controller: _emcontroller,
+          decoration: InputDecoration(
+            contentPadding: const EdgeInsets.all(16.0),
+            prefixIcon: Container(
+                padding: const EdgeInsets.only(top: 16.0, bottom: 16.0),
+                margin: const EdgeInsets.only(right: 8.0),
+                decoration: BoxDecoration(
+                    color: Colors.black,
+                    borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(30.0),
+                        bottomLeft: Radius.circular(30.0),
+                        topRight: Radius.circular(30.0),
+                        bottomRight: Radius.circular(10.0))),
+                child: Icon(
+                  Icons.email,
+                  color: Colors.lightBlue,
+                )),
+            hintText: "Email",
+            hintStyle: TextStyle(color: Colors.black),
+            border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(30.0),
+                borderSide: BorderSide.none),
+            filled: true,
+            fillColor: Colors.cyan.withOpacity(0.8),
+          ),
+        ),
+          SizedBox(
+          height: 5,
+        ),
+                TextField(
+          controller: _passcontroller,
+          decoration: InputDecoration(
+            contentPadding: const EdgeInsets.all(16.0),
+            prefixIcon: Container(
+                padding: const EdgeInsets.only(top: 16.0, bottom: 16.0),
+                margin: const EdgeInsets.only(right: 8.0),
+                decoration: BoxDecoration(
+                    color: Colors.black,
+                    borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(30.0),
+                        bottomLeft: Radius.circular(30.0),
+                        topRight: Radius.circular(30.0),
+                        bottomRight: Radius.circular(10.0))),
+                child: Icon(
+                  Icons.lock,
+                  color: Colors.lightBlue,
+                )),
+            hintText: "Password",
+            hintStyle: TextStyle(color: Colors.black),
+            border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(30.0),
+                borderSide: BorderSide.none),
+            filled: true,
+            fillColor: Colors.cyan.withOpacity(0.8),
+          ),
+          obscureText: true,
+        ),
                 SizedBox(
                   height: 10,
                 ),
-                MaterialButton(
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20.0)),
-                  minWidth: 300,
-                  height: 50,
-                  child: Text('Login'),
-                  color: Colors.cyan,
-                  textColor: Colors.black,
-                  elevation: 15,
-                  onPressed: _onLogin,
-                ),
+               InkWell(
+                   child: Container(
+                     width: 300,
+                     height: 50,
+                          decoration: BoxDecoration(
+                              gradient: LinearGradient(colors: [// For the gradient colour of the box
+                                Color(0xFF17ead9),//cyan
+                                Color(0xFF6078ea),//blue
+                                Color(0xFFFF4081)//pink
+                              ]),
+                              borderRadius: BorderRadius.circular(15.0),
+                              boxShadow: [
+                                BoxShadow(
+                                    color: Color(0xFF6078ea).withOpacity(0.5),
+                                    offset: Offset(0.0, 8.0),
+                                    blurRadius: 8.0)
+                              ]),
+                          child: Material(
+                            color: Colors.transparent,
+                            child: InkWell(
+                              onTap: (_onLogin),
+                              child: Center(
+                                child: Text("LOGIN",
+                                    style: TextStyle(
+                                        color: Colors.white,// LOGIN Name
+                                        fontFamily: "Poppins-Bold",
+                                        fontSize: 18,
+                                        letterSpacing: 10.0)),//for the space of the text
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
                 SizedBox(
                   height: 10,
                 ),
@@ -102,17 +174,29 @@ class _LoginPageState extends State<LoginPage> {
                     Text('Remember Me', style: TextStyle(fontSize: 16))
                   ],
                 ),
-                GestureDetector(
-                    onTap: _onRegister,
-                    child: Text('Register New Account',
-                        style: TextStyle(fontSize: 16))),
-                SizedBox(
-                  height: 10,
-                ),
-                GestureDetector(
-                    onTap: _onForgot,
-                    child:
-                        Text('Forgot Password', style: TextStyle(fontSize: 16))),
+                
+                  Spacer(),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+              FlatButton(
+                textColor: Colors.black,
+                child: Text("Create Account".toUpperCase()),
+                onPressed: _onRegister,
+              ),
+              Container(
+                color: Colors.black,
+                width: 2.0,
+                height: 20.0,
+              ),
+              FlatButton(
+                textColor: Colors.black,
+                child: Text("Forgot Password".toUpperCase()),
+                onPressed: _onForgot,
+              ),
+
+            ],),
+            SizedBox(height: 0.4),
               ],
             ),
           ),

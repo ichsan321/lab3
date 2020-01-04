@@ -5,6 +5,7 @@ import 'package:mytolongbeli/user.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 
+
 String _email, _password;
 String urlLogin = "http://michannael.com/mytolongbeli/php/login_user.php";
 
@@ -113,8 +114,7 @@ void loadpref(BuildContext ctx) async {
         phone: "not register",
         radius: "15",
         credit: "0",
-        rating: "0"
-        );
+        rating: "0");
     Navigator.push(
         ctx, MaterialPageRoute(builder: (context) => MainScreen(user: user)));
   }

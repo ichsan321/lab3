@@ -10,7 +10,7 @@ import 'package:http/http.dart' as http;
 import 'package:progress_dialog/progress_dialog.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-String pathAsset = 'asset/images/profile1.png';
+String pathAsset = 'asset/images/profile2.png';
 String urlUpload = "http://michannael.com/mytolongbeli/php/register_user.php";
 File _image;
 final TextEditingController _namecontroller = TextEditingController();
@@ -46,10 +46,10 @@ class _RegisterUserState extends State<RegisterScreen> {
         ),
         body: SingleChildScrollView(
           child: Container(
-         decoration: new BoxDecoration(
-          image: new DecorationImage(
-          image: AssetImage('asset/images/background1.jpg'),
-          fit: BoxFit.fill)),
+            decoration: new BoxDecoration(
+                image: new DecorationImage(
+                    image: AssetImage('asset/images/background1.jpg'),
+                    fit: BoxFit.fill)),
             padding: EdgeInsets.fromLTRB(40, 20, 40, 20),
             child: RegisterWidget(),
           ),
@@ -80,7 +80,7 @@ class RegisterWidgetState extends State<RegisterWidget> {
     return Column(
       children: <Widget>[
         GestureDetector(
-            onTap: ()=>mainBottomSheet(context),
+            onTap: () => mainBottomSheet(context),
             child: Container(
               width: 180,
               height: 200,
@@ -95,49 +95,191 @@ class RegisterWidgetState extends State<RegisterWidget> {
             )),
         Text('Click on image above to take profile picture'),
         TextField(
-            controller: _emcontroller,
-            keyboardType: TextInputType.emailAddress,
-            decoration: InputDecoration(
-              labelText: 'Email',
-              icon: Icon(Icons.email),
-            )),
-        TextField(
-            controller: _namecontroller,
-            keyboardType: TextInputType.text,
-            decoration: InputDecoration(
-              labelText: 'Name',
-              icon: Icon(Icons.person),
-            )),
-        TextField(
-          controller: _passcontroller,
-          decoration:
-              InputDecoration(labelText: 'Password', icon: Icon(Icons.lock)),
-          obscureText: true,
+          controller: _emcontroller,
+          decoration: InputDecoration(
+            contentPadding: const EdgeInsets.all(16.0),
+            prefixIcon: Container(
+                padding: const EdgeInsets.only(top: 16.0, bottom: 16.0),
+                margin: const EdgeInsets.only(right: 8.0),
+                decoration: BoxDecoration(
+                    color: Colors.black,
+                    borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(30.0),
+                        bottomLeft: Radius.circular(30.0),
+                        topRight: Radius.circular(30.0),
+                        bottomRight: Radius.circular(10.0))),
+                child: Icon(
+                  Icons.email,
+                  color: Colors.lightBlue,
+                )),
+            hintText: "Email",
+            hintStyle: TextStyle(color: Colors.black),
+            border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(30.0),
+                borderSide: BorderSide.none),
+            filled: true,
+            fillColor: Colors.cyan.withOpacity(0.8),
+          ),
+        ),
+        SizedBox(
+          height: 5,
         ),
         TextField(
-            controller: _phcontroller,
-            keyboardType: TextInputType.phone,
-            decoration:
-                InputDecoration(labelText: 'Phone', icon: Icon(Icons.phone))),
+          controller: _namecontroller,
+          decoration: InputDecoration(
+            contentPadding: const EdgeInsets.all(16.0),
+            prefixIcon: Container(
+                padding: const EdgeInsets.only(top: 16.0, bottom: 16.0),
+                margin: const EdgeInsets.only(right: 8.0),
+                decoration: BoxDecoration(
+                    color: Colors.black,
+                    borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(30.0),
+                        bottomLeft: Radius.circular(30.0),
+                        topRight: Radius.circular(30.0),
+                        bottomRight: Radius.circular(10.0))),
+                child: Icon(
+                  Icons.person,
+                  color: Colors.lightBlue,
+                )),
+            hintText: "Name",
+            hintStyle: TextStyle(color: Colors.black),
+            border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(30.0),
+                borderSide: BorderSide.none),
+            filled: true,
+            fillColor: Colors.cyan.withOpacity(0.8),
+          ),
+        ),
+        SizedBox(
+          height: 5,
+        ),
         TextField(
-            controller: _radiuscontroller,
+          controller: _passcontroller,
+          decoration: InputDecoration(
+            contentPadding: const EdgeInsets.all(16.0),
+            prefixIcon: Container(
+                padding: const EdgeInsets.only(top: 16.0, bottom: 16.0),
+                margin: const EdgeInsets.only(right: 8.0),
+                decoration: BoxDecoration(
+                    color: Colors.black,
+                    borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(30.0),
+                        bottomLeft: Radius.circular(30.0),
+                        topRight: Radius.circular(30.0),
+                        bottomRight: Radius.circular(10.0))),
+                child: Icon(
+                  Icons.lock,
+                  color: Colors.lightBlue,
+                )),
+            hintText: "Password",
+            hintStyle: TextStyle(color: Colors.black),
+            border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(30.0),
+                borderSide: BorderSide.none),
+            filled: true,
+            fillColor: Colors.cyan.withOpacity(0.8),
+          ),
+          obscureText: true,
+        ),
+        SizedBox(
+          height: 5,
+        ),
+       TextField(
+          controller: _phcontroller,
+           keyboardType: TextInputType.phone,
+          decoration: InputDecoration(
+            contentPadding: const EdgeInsets.all(16.0),
+            prefixIcon: Container(
+                padding: const EdgeInsets.only(top: 16.0, bottom: 16.0),
+                margin: const EdgeInsets.only(right: 8.0),
+                decoration: BoxDecoration(
+                    color: Colors.black,
+                    borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(30.0),
+                        bottomLeft: Radius.circular(30.0),
+                        topRight: Radius.circular(30.0),
+                        bottomRight: Radius.circular(10.0))),
+                child: Icon(
+                  Icons.phone,
+                  color: Colors.lightBlue,
+                )),
+            hintText: "Phone Number",
+            hintStyle: TextStyle(color: Colors.black),
+            border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(30.0),
+                borderSide: BorderSide.none),
+            filled: true,
+            fillColor: Colors.cyan.withOpacity(0.8),
+          ),
+        ), SizedBox(
+          height: 5,
+        ),
+
+         TextField(
+          controller: _radiuscontroller,
             keyboardType: TextInputType.number,
-            decoration: InputDecoration(
-                labelText: 'Radius', icon: Icon(Icons.blur_circular))),
+          decoration: InputDecoration(
+            contentPadding: const EdgeInsets.all(16.0),
+            prefixIcon: Container(
+                padding: const EdgeInsets.only(top: 16.0, bottom: 16.0),
+                margin: const EdgeInsets.only(right: 8.0),
+                decoration: BoxDecoration(
+                    color: Colors.black,
+                    borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(30.0),
+                        bottomLeft: Radius.circular(30.0),
+                        topRight: Radius.circular(30.0),
+                        bottomRight: Radius.circular(10.0))),
+                child: Icon(
+                  Icons.blur_circular,
+                  color: Colors.lightBlue,
+                )),
+            hintText: "Radius",
+            hintStyle: TextStyle(color: Colors.black),
+            border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(30.0),
+                borderSide: BorderSide.none),
+            filled: true,
+            fillColor: Colors.cyan.withOpacity(0.8),
+          ),
+        ),
         SizedBox(
           height: 10,
         ),
-        MaterialButton(
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
-          minWidth: 300,
-          height: 50,
-          child: Text('Register'),
-          color: Colors.cyan,
-          textColor: Colors.black,
-          elevation: 15,
-          onPressed: _onRegister,
-        ),
+       InkWell(
+                   child: Container(
+                     width: 300,
+                     height: 50,
+                          decoration: BoxDecoration(
+                              gradient: LinearGradient(colors: [// For the gradient colour of the box
+                                Color(0xFF17ead9),//cyan
+                                Color(0xFF6078ea),//blue
+                                Color(0xFFFF4081)//pink
+                              ]),
+                              borderRadius: BorderRadius.circular(15.0),
+                              boxShadow: [
+                                BoxShadow(
+                                    color: Color(0xFF6078ea).withOpacity(0.5),
+                                    offset: Offset(0.0, 8.0),
+                                    blurRadius: 8.0)
+                              ]),
+                          child: Material(
+                            color: Colors.transparent,
+                            child: InkWell(
+                              onTap: (_onRegister),
+                              child: Center(
+                                child: Text("REGISTER",
+                                    style: TextStyle(
+                                        color: Colors.white,// LOGIN Name
+                                        fontFamily: "Poppins-Bold",
+                                        fontSize: 18,
+                                        letterSpacing: 10.0)),//for the space of the text
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
         SizedBox(
           height: 10,
         ),
@@ -147,21 +289,22 @@ class RegisterWidgetState extends State<RegisterWidget> {
       ],
     );
   }
-  void mainBottomSheet(BuildContext context){
+
+  void mainBottomSheet(BuildContext context) {
     showModalBottomSheet(
-      context: context,
-      builder:(BuildContext context){
-      return Column(
-        mainAxisSize: MainAxisSize.min,
-      children: <Widget>[
-        _createTile(context,'Camera',Icons.camera,_action1),
-        _createTile(context,'Gallery',Icons.photo_album,_action2),
-      ],);
-      }
-    );
+        context: context,
+        builder: (BuildContext context) {
+          return Column(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              _createTile(context, 'Camera', Icons.camera, _action1),
+              _createTile(context, 'Gallery', Icons.photo_album, _action2),
+            ],
+          );
+        });
   }
 
-ListTile _createTile(
+  ListTile _createTile(
       BuildContext context, String name, IconData icon, Function action) {
     return ListTile(
       leading: Icon(icon),
@@ -199,9 +342,6 @@ ListTile _createTile(
     }
   }
 
-
-
-  
   void _onRegister() {
     print('onRegister Button from RegisterUser()');
     print(_image.toString());
@@ -226,7 +366,7 @@ ListTile _createTile(
         (_password.length > 5) &&
         (_image != null) &&
         (_phone.length > 5) &&
-          (int.parse(_radius) < 30)) {
+        (int.parse(_radius) < 30)) {
       ProgressDialog pr = new ProgressDialog(context,
           type: ProgressDialogType.Normal, isDismissible: false);
       pr.style(message: "Registration in progress");
@@ -246,7 +386,7 @@ ListTile _createTile(
           Toast.show(res.body, context,
               duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
           _image = null;
-           savepref(_email, _password);
+          savepref(_email, _password);
           _namecontroller.text = '';
           _emcontroller.text = '';
           _phcontroller.text = '';

@@ -6,7 +6,6 @@ import 'package:mytolongbeli/tab_screen4.dart';
 import 'package:mytolongbeli/user.dart';
 import 'tab_screen.dart';
 
-
 class MainScreen extends StatefulWidget {
   final User user;
 
@@ -44,31 +43,34 @@ class _MainScreenState extends State<MainScreen> {
   Widget build(BuildContext context) {
     //SystemChrome.setEnabledSystemUIOverlays([]);
     SystemChrome.setSystemUIOverlayStyle(
-        SystemUiOverlayStyle(statusBarColor: Colors.cyan));
+        SystemUiOverlayStyle(statusBarColor: Colors.cyanAccent));
     return Scaffold(
       body: tabs[currentTabIndex],
       bottomNavigationBar: BottomNavigationBar(
         onTap: onTapped,
         currentIndex: currentTabIndex,
-        //backgroundColor: Colors.blueGrey,
+        backgroundColor: Colors.black,
         type: BottomNavigationBarType.fixed,
 
         items: [
           BottomNavigationBarItem(
-            icon: Icon(Icons.search),
-            title: Text("Store"),
+            icon: Icon(Icons.search,
+             color: Colors.lightBlue,),
+            
+            title: Text("Store" ,style: TextStyle(color: Colors.white)),
+            
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.list, ),
-            title: Text("Posted Store"),
+            icon: Icon(Icons.list, color: Colors.lightBlue, ),
+            title: Text("Posted Store" ,style: TextStyle(color: Colors.white)),
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.event, ),
-            title: Text("My Store"),
+            icon: Icon(Icons.event,  color: Colors.lightBlue,),
+            title: Text("My Store" ,style: TextStyle(color: Colors.white)),
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.person, ),
-            title: Text("Profile"),
+            icon: Icon(Icons.person, color: Colors.lightBlue, ),
+            title: Text("Profile" ,style: TextStyle(color: Colors.white)),
           )
         ],
       ),

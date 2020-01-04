@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-//import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:flutter/services.dart';
 import 'package:mytolongbeli/user.dart';
@@ -214,7 +214,7 @@ class _TabScreen3State extends State<TabScreen3> {
                                             style: TextStyle(
                                                 fontSize: 16,
                                                 fontWeight: FontWeight.bold)),
-                                       /* RatingBar(
+                                        RatingBar(
                                           itemCount: 5,
                                           itemSize: 12,
                                           initialRating: double.parse(
@@ -226,7 +226,7 @@ class _TabScreen3State extends State<TabScreen3> {
                                             Icons.star,
                                             color: Colors.amber,
                                           ),
-                                        ),*/
+                                        ),
                                         SizedBox(
                                           height: 5,
                                         ),

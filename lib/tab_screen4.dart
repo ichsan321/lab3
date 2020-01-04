@@ -9,7 +9,7 @@ import 'package:flutter/services.dart';
 import 'package:mytolongbeli/loginscreen.dart';
 import 'package:mytolongbeli/payment.dart';
 import 'package:mytolongbeli/registrationscreen.dart';
-import 'package:mytolongbeli/splashscreen.dart';
+//import 'package:mytolongbeli/splashscreen.dart';
 import 'package:mytolongbeli/user.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:toast/toast.dart';
@@ -52,7 +52,7 @@ class _TabScreen4State extends State<TabScreen4> {
   @override
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(
-        SystemUiOverlayStyle(statusBarColor: Colors.cyanAccent));
+        SystemUiOverlayStyle(statusBarColor: Colors.cyan));
     return MaterialApp(
         debugShowCheckedModeBanner: false,
         home: Scaffold(
@@ -77,7 +77,7 @@ class _TabScreen4State extends State<TabScreen4> {
                                     style: TextStyle(
                                         fontSize: 24,
                                         fontWeight: FontWeight.bold,
-                                        color: Colors.white)),
+                                        color: Colors.black)),
                               ),
                               SizedBox(
                                 height: 5,
@@ -127,6 +127,7 @@ class _TabScreen4State extends State<TabScreen4> {
                                   ),
                                 ],
                               ),
+                              
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: <Widget>[
@@ -207,7 +208,7 @@ class _TabScreen4State extends State<TabScreen4> {
                                 height: 5,
                               ),
                               Container(
-                                color: Colors.cyanAccent,
+                                color: Colors.cyan,
                                 child: Center(
                                   child: Text("My Profile ",
                                       style: TextStyle(
@@ -232,38 +233,323 @@ class _TabScreen4State extends State<TabScreen4> {
                     padding: EdgeInsets.all(2.0),
                     child: Column(
                       children: <Widget>[
-                        MaterialButton(
-                          onPressed: _changeName,
-                          child: Text("CHANGE NAME"),
+                         InkWell(
+                   child: Container(
+                     width: 400,
+                     height: 20,
+                          decoration: BoxDecoration(
+                              gradient: LinearGradient(colors: [// For the gradient colour of the box
+                                Color(0xFF17ead9),//cyan
+                                Color(0xFF6078ea),//blue
+                                Color(0xFFFF4081)//pink
+                              ]),
+                              borderRadius: BorderRadius.circular(15.0),
+                              boxShadow: [
+                                BoxShadow(
+                                    color: Color(0xFF6078ea).withOpacity(0.5),
+                                    offset: Offset(0.0, 8.0),
+                                    blurRadius: 8.0)
+                              ]),
+                          child: Material(
+                            color: Colors.transparent,
+                            child: InkWell(
+                              onTap: (_changeName),
+                              child: Center(
+                                child: Text("CHANGE NAME",
+                                    style: TextStyle(
+                                        color: Colors.black,// LOGIN Name
+                                        fontFamily: "Poppins-Bold",
+                                        fontSize: 15,
+                                        letterSpacing: 2.0)),//for the space of the text
+                              ),
+                            ),
+                          ),
                         ),
-                        MaterialButton(
-                          onPressed: _changePassword,
-                          child: Text("CHANGE PASSWORD"),
+                      ),
+                     //   MaterialButton(
+                       //   onPressed: _changeName,
+                         // child: Text("CHANGE NAME"),
+                        //),
+                         SizedBox(
+                  height: 10,
+                ),
+                           InkWell(
+                   child: Container(
+                     width: 350,
+                     height: 20,
+                          decoration: BoxDecoration(
+                              gradient: LinearGradient(colors: [// For the gradient colour of the box
+                                Color(0xFF17ead9),//cyan
+                                Color(0xFF6078ea),//blue
+                                Color(0xFFFF4081)//pink
+                              ]),
+                              borderRadius: BorderRadius.circular(15.0),
+                              boxShadow: [
+                                BoxShadow(
+                                    color: Color(0xFF6078ea).withOpacity(0.5),
+                                    offset: Offset(0.0, 8.0),
+                                    blurRadius: 8.0)
+                              ]),
+                          child: Material(
+                            color: Colors.transparent,
+                            child: InkWell(
+                              onTap: (_changePassword),
+                              child: Center(
+                                child: Text("CHANGE PASSWORD",
+                                    style: TextStyle(
+                                        color: Colors.white,// LOGIN Name
+                                        fontFamily: "Poppins-Bold",
+                                        fontSize: 15,
+                                        letterSpacing: 2.0)),//for the space of the text
+                              ),
+                            ),
+                          ),
                         ),
-                        MaterialButton(
-                          onPressed: _changePhone,
-                          child: Text("CHANGE PHONE"),
+                      ),
+                     //   MaterialButton(
+                       //   onPressed: _changePassword,
+                         // child: Text("CHANGE PASSWORD"),
+                        //),
+                            SizedBox(
+                  height: 10,
+                ),
+                           InkWell(
+                   child: Container(
+                     width: 300,
+                     height: 20,
+                          decoration: BoxDecoration(
+                              gradient: LinearGradient(colors: [// For the gradient colour of the box
+                                Color(0xFF17ead9),//cyan
+                                Color(0xFF6078ea),//blue
+                                Color(0xFFFF4081)//pink
+                              ]),
+                              borderRadius: BorderRadius.circular(15.0),
+                              boxShadow: [
+                                BoxShadow(
+                                    color: Color(0xFF6078ea).withOpacity(0.5),
+                                    offset: Offset(0.0, 8.0),
+                                    blurRadius: 8.0)
+                              ]),
+                          child: Material(
+                            color: Colors.transparent,
+                            child: InkWell(
+                              onTap: (_changePhone),
+                              child: Center(
+                                child: Text("CHANGE PHONE",
+                                    style: TextStyle(
+                                        color: Colors.white,// LOGIN Name
+                                        fontFamily: "Poppins-Bold",
+                                        fontSize: 15,
+                                        letterSpacing: 2.0)),//for the space of the text
+                              ),
+                            ),
+                          ),
                         ),
-                        MaterialButton(
-                          onPressed: _changeRadius,
-                          child: Text("CHANGE RADIUS"),
+                      ),
+                       // MaterialButton(
+                         // onPressed: _changePhone,
+                          //child: Text("CHANGE PHONE"),
+                        //),
+                            SizedBox(
+                  height: 10,
+                ),
+                  InkWell(
+                   child: Container(
+                     width: 250,
+                     height: 20,
+                          decoration: BoxDecoration(
+                              gradient: LinearGradient(colors: [// For the gradient colour of the box
+                                Color(0xFF17ead9),//cyan
+                                Color(0xFF6078ea),//blue
+                                Color(0xFFFF4081)//pink
+                              ]),
+                              borderRadius: BorderRadius.circular(15.0),
+                              boxShadow: [
+                                BoxShadow(
+                                    color: Color(0xFF6078ea).withOpacity(0.5),
+                                    offset: Offset(0.0, 8.0),
+                                    blurRadius: 8.0)
+                              ]),
+                          child: Material(
+                            color: Colors.transparent,
+                            child: InkWell(
+                              onTap: (_changeRadius),
+                              child: Center(
+                                child: Text("CHANGE RADIUS",
+                                    style: TextStyle(
+                                        color: Colors.white,// LOGIN Name
+                                        fontFamily: "Poppins-Bold",
+                                        fontSize: 15,
+                                        letterSpacing: 2.0)),//for the space of the text
+                              ),
+                            ),
+                          ),
                         ),
-                        MaterialButton(
-                          onPressed: _loadPayment,
-                          child: Text("BUY CREDIT"),
+                      ),
+                       // MaterialButton(
+                         // onPressed: _changeRadius,
+                          //child: Text("CHANGE RADIUS"),
+                        //),
+                            SizedBox(
+                  height: 10,
+                ),
+                 InkWell(
+                   child: Container(
+                     width: 200,
+                     height: 20,
+                          decoration: BoxDecoration(
+                              gradient: LinearGradient(colors: [// For the gradient colour of the box
+                                Color(0xFF17ead9),//cyan
+                                Color(0xFF6078ea),//blue
+                                Color(0xFFFF4081)//pink
+                              ]),
+                              borderRadius: BorderRadius.circular(15.0),
+                              boxShadow: [
+                                BoxShadow(
+                                    color: Color(0xFF6078ea).withOpacity(0.5),
+                                    offset: Offset(0.0, 8.0),
+                                    blurRadius: 8.0)
+                              ]),
+                          child: Material(
+                            color: Colors.transparent,
+                            child: InkWell(
+                              onTap: (_loadPayment),
+                              child: Center(
+                                child: Text("BUY CREDIT",
+                                    style: TextStyle(
+                                        color: Colors.white,// LOGIN Name
+                                        fontFamily: "Poppins-Bold",
+                                        fontSize: 15,
+                                        letterSpacing: 2.0)),//for the space of the text
+                              ),
+                            ),
+                          ),
                         ),
-                        MaterialButton(
-                          onPressed: _registerAccount,
-                          child: Text("REGISTER"),
+                      ),
+                       // MaterialButton(
+                         // onPressed: _loadPayment,
+                          //child: Text("BUY CREDIT"),
+                        //),
+                            SizedBox(
+                  height: 10,
+                ),
+                 InkWell(
+                   child: Container(
+                     width: 150,
+                     height: 20,
+                          decoration: BoxDecoration(
+                              gradient: LinearGradient(colors: [// For the gradient colour of the box
+                                Color(0xFF17ead9),//cyan
+                                Color(0xFF6078ea),//blue
+                                Color(0xFFFF4081)//pink
+                              ]),
+                              borderRadius: BorderRadius.circular(15.0),
+                              boxShadow: [
+                                BoxShadow(
+                                    color: Color(0xFF6078ea).withOpacity(0.5),
+                                    offset: Offset(0.0, 8.0),
+                                    blurRadius: 8.0)
+                              ]),
+                          child: Material(
+                            color: Colors.transparent,
+                            child: InkWell(
+                              onTap: (_registerAccount),
+                              child: Center(
+                                child: Text("REGISTER",
+                                    style: TextStyle(
+                                        color: Colors.white,// LOGIN Name
+                                        fontFamily: "Poppins-Bold",
+                                        fontSize: 15,
+                                        letterSpacing: 2.0)),//for the space of the text
+                              ),
+                            ),
+                          ),
                         ),
-                        MaterialButton(
-                          onPressed: _gotologinPage,
-                          child: Text("LOG IN"),
+                      ),
+                      //  MaterialButton(
+                        //  onPressed: _registerAccount,
+                          //child: Text("REGISTER"),
+                        //),
+                            SizedBox(
+                  height: 10,
+                ),
+                 InkWell(
+                   child: Container(
+                     width: 100,
+                     height: 20,
+                          decoration: BoxDecoration(
+                              gradient: LinearGradient(colors: [// For the gradient colour of the box
+                                Color(0xFF17ead9),//cyan
+                                Color(0xFF6078ea),//blue
+                                Color(0xFFFF4081)//pink
+                              ]),
+                              borderRadius: BorderRadius.circular(15.0),
+                              boxShadow: [
+                                BoxShadow(
+                                    color: Color(0xFF6078ea).withOpacity(0.5),
+                                    offset: Offset(0.0, 8.0),
+                                    blurRadius: 8.0)
+                              ]),
+                          child: Material(
+                            color: Colors.transparent,
+                            child: InkWell(
+                              onTap: (_gotologinPage),
+                              child: Center(
+                                child: Text("LOG IN",
+                                    style: TextStyle(
+                                        color: Colors.white,// LOGIN Name
+                                        fontFamily: "Poppins-Bold",
+                                        fontSize: 15,
+                                        letterSpacing: 2.0)),//for the space of the text
+                              ),
+                            ),
+                          ),
                         ),
-                        MaterialButton(
-                          onPressed: _gotologout,
-                          child: Text("LOG OUT"),
-                        )
+                      ),
+                     //   MaterialButton(
+                       //   onPressed: _gotologinPage,
+                         // child: Text("LOG IN"),
+                        //),
+                            SizedBox(
+                  height: 10,
+                ),
+                 InkWell(
+                   child: Container(
+                     width: 80,
+                     height: 20,
+                          decoration: BoxDecoration(
+                              gradient: LinearGradient(colors: [// For the gradient colour of the box
+                                Color(0xFF17ead9),//cyan
+                                Color(0xFF6078ea),//blue
+                                Color(0xFFFF4081)//pink
+                              ]),
+                              borderRadius: BorderRadius.circular(15.0),
+                              boxShadow: [
+                                BoxShadow(
+                                    color: Color(0xFF6078ea).withOpacity(0.5),
+                                    offset: Offset(0.0, 8.0),
+                                    blurRadius: 8.0)
+                              ]),
+                          child: Material(
+                            color: Colors.transparent,
+                            child: InkWell(
+                              onTap: (_gotologout),
+                              child: Center(
+                                child: Text("LOG OUT",
+                                    style: TextStyle(
+                                        color: Colors.white,// LOGIN Name
+                                        fontFamily: "Poppins-Bold",
+                                        fontSize: 15,
+                                        letterSpacing: 1.0)),//for the space of the text
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                     //   MaterialButton(
+                       //   onPressed: _gotologout,
+                        //  child: Text("LOG OUT"),
+                        //)
                       ],
                     ),
                   );
@@ -379,6 +665,10 @@ class _TabScreen4State extends State<TabScreen4> {
             // usually buttons at the bottom of the dialog
             new FlatButton(
               child: new Text("Yes"),
+                shape: RoundedRectangleBorder(
+                borderRadius:
+                    BorderRadius.circular(20.0)),
+                    color: Colors.black,
               onPressed: () {
                 if (radiusController.text.length < 1) {
                   Toast.show("Please enter new radius ", context,
@@ -409,6 +699,10 @@ class _TabScreen4State extends State<TabScreen4> {
             ),
             new FlatButton(
               child: new Text("No"),
+                shape: RoundedRectangleBorder(
+                borderRadius:
+                    BorderRadius.circular(20.0)),
+                    color: Colors.black,
               onPressed: () {
                 Navigator.of(context).pop();
               },
@@ -419,14 +713,7 @@ class _TabScreen4State extends State<TabScreen4> {
     );
   }
 
-  void _logout() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.setString('email', '');
-    await prefs.setString('pass', '');
-    print("LOGOUT");
-    Navigator.pop(
-        context, MaterialPageRoute(builder: (context) => SplashScreen()));
-  }
+  
 
   void _changeName() {
     TextEditingController nameController = TextEditingController();
@@ -441,6 +728,7 @@ class _TabScreen4State extends State<TabScreen4> {
     showDialog(
       context: context,
       builder: (BuildContext context) {
+        
         // return object of type Dialog
         return AlertDialog(
           title: new Text("Change name for " + widget.user.name + "?"),
@@ -454,6 +742,10 @@ class _TabScreen4State extends State<TabScreen4> {
             // usually buttons at the bottom of the dialog
             new FlatButton(
               child: new Text("Yes"),
+               shape: RoundedRectangleBorder(
+                borderRadius:
+                    BorderRadius.circular(20.0)),
+                    color: Colors.black,
               onPressed: () {
                 if (nameController.text.length < 5) {
                   Toast.show(
@@ -486,6 +778,10 @@ class _TabScreen4State extends State<TabScreen4> {
             ),
             new FlatButton(
               child: new Text("No"),
+                shape: RoundedRectangleBorder(
+                borderRadius:
+                    BorderRadius.circular(20.0)),
+                    color: Colors.black,
               onPressed: () {
                 Navigator.of(context).pop();
               },
@@ -523,6 +819,10 @@ class _TabScreen4State extends State<TabScreen4> {
             // usually buttons at the bottom of the dialog
             new FlatButton(
               child: new Text("Yes"),
+              shape: RoundedRectangleBorder(
+                borderRadius:
+                    BorderRadius.circular(20.0)),
+                    color: Colors.black,
               onPressed: () {
                 if (passController.text.length < 5) {
                   Toast.show("Password too short", context,
@@ -554,6 +854,10 @@ class _TabScreen4State extends State<TabScreen4> {
             ),
             new FlatButton(
               child: new Text("No"),
+              shape: RoundedRectangleBorder(
+                borderRadius:
+                    BorderRadius.circular(20.0)),
+                    color: Colors.black,
               onPressed: () {
                 Navigator.of(context).pop();
               },
@@ -578,7 +882,7 @@ class _TabScreen4State extends State<TabScreen4> {
       builder: (BuildContext context) {
         // return object of type Dialog
         return AlertDialog(
-          title: new Text("Change phone for" + widget.user.name),
+          title: new Text("Change phone for " + widget.user.name),
           content: new TextField(
               keyboardType: TextInputType.phone,
               controller: phoneController,
@@ -590,6 +894,10 @@ class _TabScreen4State extends State<TabScreen4> {
             // usually buttons at the bottom of the dialog
             new FlatButton(
               child: new Text("Yes"),
+              shape: RoundedRectangleBorder(
+                borderRadius:
+                    BorderRadius.circular(20.0)),
+                    color: Colors.black,
               onPressed: () {
                 if (phoneController.text.length < 5) {
                   Toast.show("Please enter correct phone number", context,
@@ -618,6 +926,10 @@ class _TabScreen4State extends State<TabScreen4> {
             ),
             new FlatButton(
               child: new Text("No"),
+              shape: RoundedRectangleBorder(
+                borderRadius:
+                    BorderRadius.circular(20.0)),
+                    color: Colors.black,
               onPressed: () {
                 Navigator.of(context).pop();
               },
@@ -643,6 +955,11 @@ class _TabScreen4State extends State<TabScreen4> {
             // usually buttons at the bottom of the dialog
             new FlatButton(
               child: new Text("Yes"),
+              
+              shape: RoundedRectangleBorder(
+                borderRadius:
+                    BorderRadius.circular(20.0)),
+                    color: Colors.black,
               onPressed: () {
                 Navigator.of(context).pop();
                 print(
@@ -656,6 +973,10 @@ class _TabScreen4State extends State<TabScreen4> {
             ),
             new FlatButton(
               child: new Text("No"),
+              shape: RoundedRectangleBorder(
+                borderRadius:
+                    BorderRadius.circular(20.0)),
+                    color: Colors.black,
               onPressed: () {
                 Navigator.of(context).pop();
               },
@@ -680,6 +1001,10 @@ class _TabScreen4State extends State<TabScreen4> {
             // usually buttons at the bottom of the dialog
             new FlatButton(
               child: new Text("Yes"),
+              shape: RoundedRectangleBorder(
+                borderRadius:
+                    BorderRadius.circular(20.0)),
+                    color: Colors.black,
               onPressed: () {
                 Navigator.of(context).pop();
                 Navigator.push(
@@ -690,6 +1015,10 @@ class _TabScreen4State extends State<TabScreen4> {
             ),
             new FlatButton(
               child: new Text("No"),
+              shape: RoundedRectangleBorder(
+                borderRadius:
+                    BorderRadius.circular(20.0)),
+                    color: Colors.black,
               onPressed: () {
                 Navigator.of(context).pop();
               },
@@ -714,6 +1043,10 @@ class _TabScreen4State extends State<TabScreen4> {
             // usually buttons at the bottom of the dialog
             new FlatButton(
               child: new Text("Yes"),
+              shape: RoundedRectangleBorder(
+                borderRadius:
+                    BorderRadius.circular(20.0)),
+                    color: Colors.black,
               onPressed: () async {
                 Navigator.of(context).pop();
                 SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -721,11 +1054,15 @@ class _TabScreen4State extends State<TabScreen4> {
                 await prefs.setString('pass', '');
                 print("LOGOUT");
                 Navigator.pop(context,
-                    MaterialPageRoute(builder: (context) => SplashScreen()));
+                    MaterialPageRoute(builder: (context) => LoginPage()));
               },
             ),
             new FlatButton(
               child: new Text("No"),
+              shape: RoundedRectangleBorder(
+                borderRadius:
+                    BorderRadius.circular(20.0)),
+                    color: Colors.black,
               onPressed: () {
                 Navigator.of(context).pop();
               },
@@ -764,6 +1101,10 @@ class _TabScreen4State extends State<TabScreen4> {
             // usually buttons at the bottom of the dialog
             new FlatButton(
               child: new Text("Yes"),
+              shape: RoundedRectangleBorder(
+                borderRadius:
+                    BorderRadius.circular(20.0)),
+                    color: Colors.black,
               onPressed: () async {
                 Navigator.of(context).pop();
                 var now = new DateTime.now();
@@ -776,6 +1117,10 @@ class _TabScreen4State extends State<TabScreen4> {
             ),
             new FlatButton(
               child: new Text("No"),
+                shape: RoundedRectangleBorder(
+                borderRadius:
+                    BorderRadius.circular(20.0)),
+                    color: Colors.black,
               onPressed: () {
                 Navigator.of(context).pop();
               },
@@ -801,15 +1146,15 @@ class _DropdownExampleState extends State<DropdownExample> {
       child: DropdownButton<String>(
         items: [
           DropdownMenuItem<String>(
-            child: Text('50 HCredit (RM10)'),
+            child: Text('50 C Credit (RM10)'),
             value: '10',
           ),
           DropdownMenuItem<String>(
-            child: Text('100 HCredit (RM20)'),
+            child: Text('100 C Credit (RM20)'),
             value: '20',
           ),
           DropdownMenuItem<String>(
-            child: Text('150 HCredit (RM30)'),
+            child: Text('150 C Credit (RM30)'),
             value: '30',
           ),
         ],
@@ -818,7 +1163,7 @@ class _DropdownExampleState extends State<DropdownExample> {
             _value = value;
           });
         },
-        hint: Text('Select Credit'),
+        hint: Text('Select Credit',style: TextStyle(color: Colors.black),),
         value: _value,
       ),
     );

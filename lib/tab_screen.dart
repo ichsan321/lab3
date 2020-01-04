@@ -44,7 +44,7 @@ class _TabScreenState extends State<TabScreen> {
   Widget build(BuildContext context) {
     
    SystemChrome.setSystemUIOverlayStyle(
-        SystemUiOverlayStyle(statusBarColor: Colors.deepOrange));
+        SystemUiOverlayStyle(statusBarColor: Colors.cyan));
     return MaterialApp(
         debugShowCheckedModeBanner: false,
         home: Scaffold(
@@ -52,9 +52,9 @@ class _TabScreenState extends State<TabScreen> {
            
             body: RefreshIndicator(
               key: refreshKey,
-              color: Colors.deepOrange,
+              color: Colors.cyan,
               onRefresh: () async {
-                await refreshList();
+                //await refreshList();
               },
               child: ListView.builder(
                   //Step 6: Count the data
@@ -75,11 +75,11 @@ class _TabScreenState extends State<TabScreen> {
                                     height: 20,
                                   ),
                                   Center(
-                                    child: Text("MyHelper",
+                                    child: Text("MyTolongBeli",
                                         style: TextStyle(
                                             fontSize: 24,
                                             fontWeight: FontWeight.bold,
-                                            color: Colors.white)),
+                                            color: Colors.black)),
                                   ),
                                   SizedBox(height: 10),
                                   Container(
@@ -164,13 +164,13 @@ class _TabScreenState extends State<TabScreen> {
                               height: 4,
                             ),
                             Container(
-                              color: Colors.deepOrange,
+                              color: Colors.cyan,
                               child: Center(
-                                child: Text("Jobs Available Today",
+                                child: Text("Store Available Today",
                                     style: TextStyle(
                                         fontSize: 16,
                                         fontWeight: FontWeight.bold,
-                                        color: Colors.white)),
+                                        color: Colors.black)),
                               ),
                             ),
                           ],
@@ -180,7 +180,7 @@ class _TabScreenState extends State<TabScreen> {
                     if (index == data.length && perpage > 1) {
                       return Container(
                         width: 250,
-                        color: Colors.white,
+                        color: Colors.cyan,
                         child: MaterialButton(
                           child: Text(
                             "Load More",
@@ -307,7 +307,7 @@ class _TabScreenState extends State<TabScreen> {
     String urlLoadJobs = "http://michannael.com/mytolongbeli/php/load_jobs.php";
     ProgressDialog pr = new ProgressDialog(context,
         type: ProgressDialogType.Normal, isDismissible: false);
-    pr.style(message: "Loading Jobs");
+    pr.style(message: "Loading Store");
     pr.show();
     http.post(urlLoadJobs, body: {
       "email": widget.user.email ?? "notavail",

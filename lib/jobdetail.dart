@@ -30,11 +30,15 @@ class _JobDetailState extends State<JobDetail> {
           resizeToAvoidBottomPadding: false,
           appBar: AppBar(
             title: Text('STORE DETAILS'),
-            backgroundColor: Colors.cyanAccent,
+            backgroundColor: Colors.cyan,
           ),
           body: SingleChildScrollView(
             child: Container(
-              padding: EdgeInsets.fromLTRB(40, 20, 40, 20),
+               decoration: new BoxDecoration(
+                  image: new DecorationImage(
+                      image: AssetImage('asset/images/shop2.jpg'),
+                      fit: BoxFit.fill)),
+              padding: EdgeInsets.fromLTRB(50, 110, 40, 20),
               child: DetailInterface(
                 job: widget.job,
                 user: widget.user,
